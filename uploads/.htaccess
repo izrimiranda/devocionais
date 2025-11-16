@@ -1,0 +1,10 @@
+# Bloquear execução de PHP em diretórios de upload
+<FilesMatch "\.(php|php5|phtml|php7)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Permitir apenas arquivos de imagem e áudio
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|mp3|ogg|wav)$">
+    Allow from all
+</FilesMatch>

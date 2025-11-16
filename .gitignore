@@ -1,0 +1,12 @@
+.env
+.env.local
+.env.production
+*.log
+uploads/*
+!uploads/.htaccess
+devocionais/*
+!devocionais/.gitkeep
+.DS_Store
+Thumbs.db
+*.swp
+*.swo

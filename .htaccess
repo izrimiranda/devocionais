@@ -1,0 +1,39 @@
+# Proteção de arquivos sensíveis
+<Files ".env">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Headers CORS para permitir acesso do domínio principal
+<IfModule mod_headers.c>
+    # Permitir acesso de ambos os domínios
+    SetEnvIf Origin "^https?://(www\.)?(pastorluciano\.com\.br|pastorluciano\.codigo1615\.com\.br)$" ORIGIN_ALLOWED=$0
+    
+    Header always set Access-Control-Allow-Origin "%{ORIGIN_ALLOWED}e" env=ORIGIN_ALLOWED
+    Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+    Header always set Access-Control-Allow-Credentials "true"
+    
+    # Cache para recursos estáticos
+    <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|webp|js|css|swf|woff|woff2|ttf|svg)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </FilesMatch>
+    
+    # Headers específicos para manifest.json e service worker
+    <FilesMatch "\.(json|webmanifest)$">
+        Header set Content-Type "application/json; charset=utf-8"
+        Header set Cache-Control "max-age=86400, public"
+    </FilesMatch>
+    
+    <FilesMatch "sw\.js$">
+        Header set Content-Type "application/javascript; charset=utf-8"
+        Header set Service-Worker-Allowed "/"
+        Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+# Habilitar rewrite (se necessário para URLs amigáveis)
+# RewriteEngine On
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
