@@ -233,7 +233,15 @@ a:hover {
 .nav-menu {
     list-style: none;
     display: flex;
+    align-items: center;
     gap: var(--spacing-xs);
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu > li {
+    display: flex;
+    align-items: center;
     margin: 0;
     padding: 0;
 }
@@ -1466,20 +1474,47 @@ a:hover {
 
 /* Botão de Instalação do App */
 .install-app-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gray-700);
+    font-weight: 500;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+    text-decoration: none;
+    position: relative;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+.install-app-btn span:first-child {
+    font-size: 1.125rem;
+}
+
+.install-app-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
     transition: all 0.3s ease;
-    color: inherit;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+    transform: translateX(-50%);
 }
 
 .install-app-btn:hover {
     color: var(--primary);
+    background: var(--gray-100);
+}
+
+.install-app-btn:hover::after {
+    width: 80%;
 }
 
 #install-container {
